@@ -1,0 +1,19 @@
+{
+  "name": "transfer-form-demo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "element-ui": "^2.15.14",
+    "vue": "^2.7.16"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^5.0.8",
+    "sass": "^1.98.0",
+    "sass-loader": "^16.0.7",
+    "vue-template-compiler": "^2.7.16"
+  }
+}

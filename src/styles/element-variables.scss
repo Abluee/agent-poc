@@ -1,0 +1,138 @@
+/* ElementUI 主题覆盖 — 必须在 import var.scss 之前声明变量 */
+$--color-primary: #ffa62f;
+$--color-primary-light-3: #ffb94f;
+$--color-primary-light-5: #ffc266;
+$--color-primary-light-7: #ffd480;
+$--color-primary-light-8: #ffdb99;
+$--color-primary-light-9: #ffe2b3;
+$--color-primary-dark-2: #e6952a;
+
+@import '~element-ui/packages/theme-chalk/src/common/var.scss';
+@import '~element-ui/packages/theme-chalk/src/mixins/mixins.scss';
+
+/* 按钮 */
+@include b(button) {
+  @include m(primary) {
+    background-color: $--color-primary !important;
+    border-color: $--color-primary !important;
+    &:hover,
+    &:focus {
+      background-color: $--color-primary-dark-2 !important;
+      border-color: $--color-primary-dark-2 !important;
+    }
+    &:active {
+      background-color: #cc8526 !important;
+      border-color: #cc8526 !important;
+    }
+  }
+}
+
+/* 日期表格 */
+@include b(date-table) {
+  td {
+    &.available:hover .el-date-table-cell__text {
+      background-color: $--color-primary-light-9 !important;
+      color: $--color-primary !important;
+    }
+    &.today .el-date-table-cell__text {
+      color: $--color-primary !important;
+      font-weight: 600 !important;
+    }
+    &.current:not(.disabled) .el-date-table-cell__text {
+      background-color: $--color-primary !important;
+      color: #fff !important;
+    }
+    &.in-range .el-date-table-cell {
+      background-color: $--color-primary-light-9 !important;
+    }
+  }
+}
+
+/* 月份 / 年份选择器 */
+@include b(month-table) {
+  td {
+    .cell:hover {
+      background-color: $--color-primary-light-9 !important;
+      color: $--color-primary !important;
+    }
+    &.current:not(.disabled) .cell {
+      color: $--color-primary !important;
+    }
+  }
+}
+
+@include b(year-table) {
+  td {
+    .cell:hover {
+      background-color: $--color-primary-light-9 !important;
+      color: $--color-primary !important;
+    }
+    &.current:not(.disabled) .cell {
+      color: $--color-primary !important;
+    }
+  }
+}
+
+/* 日期面板 */
+@include b(picker-panel) {
+  border-color: #e6ebf5 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  @include e(icon-btn) {
+    &:hover {
+      color: $--color-primary !important;
+    }
+  }
+  @include e(btn) {
+    color: $--color-primary !important;
+    &.is-disabled {
+      color: #c0c4cc !important;
+    }
+  }
+}
+
+/* 时间面板 */
+@include b(time-panel) {
+  border-color: #e6ebf5 !important;
+  @include e(content) {
+    border-color: #f0f0f0 !important;
+  }
+}
+
+@include b(time-spinner) {
+  @include e(item) {
+    &:hover {
+      background-color: $--color-primary-light-9 !important;
+    }
+    &.active {
+      color: $--color-primary !important;
+    }
+  }
+}
+
+/* radio */
+@include b(radio) {
+  @include when(check) {
+    .el-radio__inner {
+      background-color: $--color-primary !important;
+      border-color: $--color-primary !important;
+    }
+  }
+  @include e(label) {
+    @include when(checked) {
+      color: $--color-primary !important;
+    }
+  }
+}
+
+/* 分页器 */
+@include b(pager) {
+  li {
+    &.active {
+      background-color: $--color-primary !important;
+      color: #fff !important;
+    }
+    &:hover {
+      color: $--color-primary !important;
+    }
+  }
+}
