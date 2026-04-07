@@ -290,7 +290,7 @@
     <div class="page-button-area">
       <div class="page-button-row">
         <el-button size="medium" @click="handleReset">重置</el-button>
-        <el-button type="primary" size="medium" @click="handleSubmit">提交转账</el-button>
+        <el-button ref="submitButton" type="primary" size="medium" @click="handleSubmit">提交转账</el-button>
       </div>
     </div>
 
@@ -536,6 +536,10 @@ import {
   searchPayerAccounts,
   searchRecipientRoster,
 } from '../mock/transferService'
+import {
+  buildTrackedSubmissionPayload,
+  notifyTrackedFormSubmitted
+} from '../utils/agentTimingBridge'
 
 export default {
   name: 'TransferForm',
@@ -741,6 +745,10 @@ export default {
     }
   },
   mounted() {
+  //   window.startAgentTiming({
+  //   attachmentName: 'invoice-001.pdf',
+  //   prompt: '请从附件中提取转账信息并填入页面表单'
+  // })
     window.addEventListener('resize', this.updateBankTableHeight)
     window.addEventListener('resize', this.updateQuickDocumentTableHeight)
   },
@@ -1025,8 +1033,12 @@ export default {
       this.selectedQuickDocumentLabel = ''
     },
     handleSubmit() {
-      this.$refs.transferForm.validate((valid) => {
-        if (!valid) return
+      return new Promise((resolve) => {
+        this.$refs.transferForm.validate((valid) => {
+          if (!valid) {
+            resolve(false)
+            return
+          }
 
           const { payeeName, payeeAccount, payeeBankName, payeeBankCode, amount,
               payerId, payerAccountNo,
@@ -1055,7 +1067,12 @@ export default {
           data.scheduleTime = scheduleTime
         }
 
-        console.log('提交数据：', data)
+          const trackedPayload = buildTrackedSubmissionPayload(data)
+
+          console.log('提交数据：', trackedPayload)
+          notifyTrackedFormSubmitted(trackedPayload)
+          resolve(true)
+        })
       })
     },
     handleReset() {
