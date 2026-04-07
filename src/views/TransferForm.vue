@@ -1071,6 +1071,9 @@ export default {
 
           console.log('提交数据：', trackedPayload)
           notifyTrackedFormSubmitted(trackedPayload)
+          this.$alert('提交成功', '提示', {
+            confirmButtonText: '确定'
+          })
           resolve(true)
         })
       })
