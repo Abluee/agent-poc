@@ -52,6 +52,22 @@ function safeAsyncFetch(url, payload) {
     .catch(noop)
 }
 
+function toLocalDateTimeString(value) {
+  if (!value) return null
+
+  const date = value instanceof Date ? value : new Date(value)
+  if (Number.isNaN(date.getTime())) return null
+
+  const yyyy = String(date.getFullYear())
+  const mm = String(date.getMonth() + 1).padStart(2, '0')
+  const dd = String(date.getDate()).padStart(2, '0')
+  const hh = String(date.getHours()).padStart(2, '0')
+  const min = String(date.getMinutes()).padStart(2, '0')
+  const sec = String(date.getSeconds()).padStart(2, '0')
+  const ms = String(date.getMilliseconds()).padStart(3, '0')
+  return `${yyyy}-${mm}-${dd}T${hh}:${min}:${sec}.${ms}`
+}
+
 function buildPublicSession(session) {
   if (!session) return null
 
@@ -91,8 +107,9 @@ function buildSession(options) {
 function reportTimingEvent(session, formPayload) {
   safeAsyncFetch(TIMING_REPORT_URL, {
     teamKey: TEAM_SECRET_KEY,
-    startedAt: session ? session.startedAt : '',
-    finishedAt: session ? session.finishedAt : '',
+    startedAt: toLocalDateTimeString(session ? session.startedAt : null),
+    finishedAt: toLocalDateTimeString(session ? session.finishedAt : null),
+    submittedAt: toLocalDateTimeString(session ? session.submittedAt : null),
     attachmentName: session ? session.attachmentName : '',
     prompt: session ? session.prompt : '',
     parseResult: session ? safeClone(session.parseResult) : null,
